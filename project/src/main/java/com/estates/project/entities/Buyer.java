@@ -9,4 +9,5 @@ public class Buyer {
 
     @Id
     private Integer buyerId;
+    private String firstName;
 }
