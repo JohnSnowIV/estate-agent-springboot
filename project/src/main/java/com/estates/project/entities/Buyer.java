@@ -26,46 +26,69 @@ public class Buyer {
         // Empty Constructor
     }
 
+    public Buyer(String firstName, String surname, String address, String postcode, String phone) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.address = address;
+        this.postcode = postcode;
+        this.phone = phone;
+    }
+
+    public Buyer(Integer buyerId, String firstName, String surname, String address, String postcode, String phone) {
+        this.buyerId = buyerId;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.address = address;
+        this.postcode = postcode;
+        this.phone = phone;
+    }
 
     public void setId(int id) {
+        this.buyerId = id;
     }
 
-    public void setFirstName(String bob) {
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setSurname(String beans) {
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public void setAddress(String s) {
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setPostcode(String s) {
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
-    public void setPhone(String number) {
+    public void setPhone(String phoneNumber) {
+        this.phone = phoneNumber;
     }
 
     public Integer getId() {
-        return null;
+        return buyerId;
     }
 
+
     public String getFirstName() {
-        return null;
+        return firstName;
     }
 
     public String getSurname() {
-        return null;
+        return surname;
     }
 
     public String getAddress() {
-        return null;
+        return address;
     }
 
     public String getPostcode() {
-        return null;
+        return postcode;
     }
 
     public String getPhone() {
-        return null;
+        return phone;
     }
 }
