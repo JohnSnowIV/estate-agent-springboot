@@ -3,6 +3,7 @@ package com.estates.project.testControllers;
 import com.estates.project.controllers.PropertyController;
 import com.estates.project.entities.Property;
 import com.estates.project.services.PropertyService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -28,6 +31,9 @@ public class TestPropertyController {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @MockBean
     private PropertyService propertyService;
@@ -42,10 +48,27 @@ public class TestPropertyController {
 
         when(this.propertyService.fetchProperties()).thenReturn(propList);
 
-        mvc.perform(MockMvcRequestBuilders.get("/properties"))
+        mvc.perform(MockMvcRequestBuilders.get("/property"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(3)));
+    }
+
+    @Test
+    public void testPostProperty() throws Exception{
+        Property newProperty= new Property();
+        Property compareProperty= new Property();
+        compareProperty.setPropertyId(1);
+        String reqBody= mapper.writeValueAsString(newProperty);
+        String compareJSON=mapper.writeValueAsString(compareProperty);
+
+
+        mvc.perform(MockMvcRequestBuilders.post("/property").content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print());
+
+
     }
 
 }

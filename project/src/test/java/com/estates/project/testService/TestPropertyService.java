@@ -37,6 +37,17 @@ public class TestPropertyService {
 
     }
 
+    @Test
+    public void testCreateProperty(){
+        Property newProperty=new Property();
+        newProperty.setAddress("road street");
+
+        when(this.propertyRepo.save(newProperty)).thenReturn(newProperty);
+
+        Assertions.assertEquals(propertyService.createProperty(newProperty),newProperty);
+        Assertions.assertEquals(propertyService.createProperty(newProperty).getAddress(),"road street");
+    }
+
 
 
 }
