@@ -26,4 +26,16 @@ public class SellerService {
     public Seller getById(int id) {
         return this.sellerRepo.findById(id).get();
     }
+
+    public Seller updateSeller(int id, String firstName, String surname, String address, String postcode, String phone) {
+        Seller toUpdate = this.getById(id);
+
+        if(firstName != null) toUpdate.setFirstName(firstName);
+        if(surname != null) toUpdate.setFirstName(surname);
+        if(address != null) toUpdate.setFirstName(address);
+        if(postcode != null) toUpdate.setFirstName(postcode);
+        if(phone != null) toUpdate.setFirstName(phone);
+
+        return this.sellerRepo.save(toUpdate);
+    }
 }
