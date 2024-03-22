@@ -10,6 +10,7 @@ import java.util.List;
 @RequestMapping("/seller")
 public class SellerController {
 
+
     private SellerService sellerService;
 
     public SellerController(SellerService sellerService){

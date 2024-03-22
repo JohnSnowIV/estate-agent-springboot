@@ -36,8 +36,22 @@ public class PropertyService {
 
         Property toUpdate=this.fetchPropertyById(Id);
 
+        if(address!=null) toUpdate.setAddress(address);
+        if(listed!=null) toUpdate.setListed(listed);
+        if(postcode!=null) toUpdate.setPostcode(postcode);
+        if(type!=null) toUpdate.setType(type);
+        if(price!=null) toUpdate.setPrice(price);
+        if(bedroom!=null) toUpdate.setBedroom(bedroom);
+        if(bathroom!=null) toUpdate.setBathroom(bathroom);
+        if(garden!=null) toUpdate.setGarden(garden);
+        if(status!=null) toUpdate.setStatus(status);
+        if(image!=null) toUpdate.setImage(image);
+        if(description!=null) toUpdate.setDescription(description);
+        if(dateAdded!=null) toUpdate.setDateAdded(dateAdded);
+        if(sellerId!=null) toUpdate.setSellerId(sellerId);
 
-        return toUpdate;
+
+        return this.propertyRepo.save(toUpdate);
     }
 
 
