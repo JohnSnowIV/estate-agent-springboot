@@ -28,11 +28,23 @@ public class BookingController {
                 return this.service.deleteBooking(id);
         }
 
-        @GetMapping("/getById/{id}")
+        @GetMapping("/{id}")
         public Booking getById(@PathVariable Integer id){
                 return this.service.getById(id);
         }
 
+        @PatchMapping("/update/{id}")
+        public Booking updateBooking(@PathVariable Integer id,
+                                     @RequestParam(required = false) Integer propertyId,
+                                     @RequestParam(required = false) Integer buyerId,
+                                     @RequestParam(required = false) String dateTime){
+                return this.service.updateBooking(id,propertyId,buyerId,dateTime);
+        }
+
+        @GetMapping("/getAll")
+        public List<Booking> getAll(){
+                return this.service.getAll();
+        }
 
 
 
