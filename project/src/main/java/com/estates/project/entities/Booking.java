@@ -7,15 +7,15 @@ import jakarta.persistence.Id;
 @Entity
 public class Booking {
     @Id
-    @Column(name = "id", nullable = false, updatable = true)
+//    @Column(name = "id", nullable = false, updatable = true)
     private Integer bookingId;
 
-    @Column(name = "Property-id", nullable = false, updatable = true)
+//    @Column(name = "Property-id", nullable = false, updatable = true)
     private Integer propertyId;
-    @Column(name = "Buyer-id", nullable = false, updatable = true)
+//    @Column(name = "Buyer-id", nullable = false, updatable = true)
     private  Integer buyerId;
 
-    @Column(name = "booking-date", nullable = false, updatable = true)
+//    @Column(name = "booking-date", nullable = false, updatable = true)
     private String dateTime;
 
 
@@ -29,6 +29,11 @@ public class Booking {
     }
 
 
+    public Booking(Integer bookingId, int propertyId, int buyerId, String dateTime){
+        this.bookingId = bookingId;
+        this.propertyId = propertyId;
+        this.buyerId = buyerId;
+        this.dateTime = dateTime;
 
-
+    }
 }

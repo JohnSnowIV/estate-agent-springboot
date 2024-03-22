@@ -6,14 +6,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcResultMatchersDsl;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import javax.print.DocFlavor;
 
 @SpringBootTest
-@AutoConfiguration
+@AutoConfigureMockMvc
 public class TestBookingController {
     @Autowired
     private MockMvc mvc;
@@ -27,6 +33,12 @@ public class TestBookingController {
         String newBookingAsJson = this.mapper.writeValueAsString(newBooking);
         RequestBuilder mockRequest = MockMvcRequestBuilders.post("/create").contentType(MediaType.APPLICATION_JSON).content(newBookingAsJson);
 
+        ResultMatcher checkStatus = MockMvcResultMatchers.status().isOk();
+        Booking createdBooking = new Booking(1,1,3,"2024-03-10 20:44");
+        String createdBookingAsJson = this.mapper.writeValueAsString(createdBooking);
+
+        ResultMatcher checkBody = MockMvcResultMatchers.content().json(createdBookingAsJson);
+        this.mvc.perform(mockRequest).andExpect( checkStatus).andExpect(checkBody);
     }
 
 
