@@ -13,15 +13,18 @@ public class PropertyController {
 
     @Autowired
     private PropertyService propertyService;
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/property")
     public List<Property> getProperties(){
          return this.propertyService.fetchProperties();
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/property")
     public Property postProperty(@RequestBody Property property){
         return this.propertyService.createProperty(property);
     }
+    @CrossOrigin(origins = "http://localhost:5173")
     @PatchMapping("/property/{id}")
     public Property updateProperty(@PathVariable Integer Id, @RequestParam(required = false) String address,@RequestParam(required = false) Boolean listed,
                                    @RequestParam(required = false) String postcode, @RequestParam(required = false) String type,

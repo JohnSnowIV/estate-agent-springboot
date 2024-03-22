@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/seller")
 public class SellerController {
 
 
@@ -17,17 +17,20 @@ public class SellerController {
         this.sellerService = sellerService;
     }
 
-    @GetMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping("/seller/{id}")
     public Seller getById(@PathVariable int id){
         return this.sellerService.getById(id);
     }
 
-    @GetMapping("/getAll")
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping("/seller")
     public List<Seller> getAll(){
         return this.sellerService.getAll();
     }
 
-    @PostMapping("/create")
+    @CrossOrigin(origins = "http://localhost:5173")
+    @PostMapping("/seller/create")
     public Seller createSeller(@RequestBody Seller newSeller){
         return this.sellerService.createSeller(newSeller);
     }
@@ -36,7 +39,8 @@ public class SellerController {
     //  This api call will only work locally and has been written to meet
     //  the minimum MVP requirements.
     //  Will need to modify this to work with the frontend in due course.
-    @PatchMapping("/update/{id}")
+    @CrossOrigin(origins = "http://localhost:5173")
+    @PatchMapping("/seller/update/{id}")
     public Seller updateSeller(@PathVariable Integer id,
                                @RequestParam(required = false) String firstName,
                                @RequestParam(required = false) String surname,
