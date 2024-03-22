@@ -12,23 +12,74 @@ import java.time.LocalDateTime;
 public class Property {
 
     @Id
-    private Integer propertyId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer Id;
+    @Column(name="LISTED")
     private Boolean listed;
+    @Column(name="ADDRESS")
     private String address;
+    @Column(name="POSTCODE")
     private String postcode;
+    @Column(name="TYPE")
     private String type;
+    @Column(name="PRICE")
     private Integer price;
+    @Column(name="BEDROOM")
     private Integer bedroom;
+    @Column(name="BATHROOM")
     private Integer bathroom;
+    @Column(name="GARDEN")
     private Integer garden;
-
+    @Column(name="SELLERID")
     private Integer sellerId;
+    @Column(name="STATUS")
     private String status;
+    @Column(name="IMAGE")
     private String image;
+    @Column(name="DESCRIPTION")
     private String description;
+    @Column(name="DATEADDED")
     private LocalDateTime dateAdded;
 
     public Property(){
+
+    }
+    public Property(  Boolean listed,String address, String postcode, String type,
+                    Integer price, Integer bedroom, Integer bathroom, Integer garden,
+                    Integer sellerId, String status, String image, String description){
+
+
+        this.address=address;
+        this.listed=listed;
+        this.postcode=postcode;
+        this.type=type;
+        this.price=price;
+        this.bedroom=bedroom;
+        this.bathroom=bathroom;
+        this.garden=garden;
+        this.sellerId=sellerId;
+        this.status=status;
+        this.image=image;
+        this.description=description;
+
+    }
+    public Property(  Integer Id,Boolean listed,String address, String postcode, String type,
+                      Integer price, Integer bedroom, Integer bathroom, Integer garden,
+                      Integer sellerId, String status, String image, String description){
+
+        this.Id=Id;
+        this.address=address;
+        this.listed=listed;
+        this.postcode=postcode;
+        this.type=type;
+        this.price=price;
+        this.bedroom=bedroom;
+        this.bathroom=bathroom;
+        this.garden=garden;
+        this.sellerId=sellerId;
+        this.status=status;
+        this.image=image;
+        this.description=description;
 
     }
 
@@ -52,8 +103,8 @@ public class Property {
         return price;
     }
 
-    public Integer getPropertyId() {
-        return propertyId;
+    public Integer getId() {
+        return Id;
     }
 
     public Integer getSellerId() {
@@ -120,8 +171,8 @@ public class Property {
         this.postcode = postcode;
     }
 
-    public void setPropertyId(Integer propertyId) {
-        this.propertyId = propertyId;
+    public void setId(Integer propertyId) {
+        this.Id = propertyId;
     }
 
     public void setPrice(Integer price) {
