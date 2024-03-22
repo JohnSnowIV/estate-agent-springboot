@@ -21,7 +21,6 @@ public class Property {
     private Integer bedroom;
     private Integer bathroom;
     private Integer garden;
-
     private Integer sellerId;
     private String status;
     private String image;
