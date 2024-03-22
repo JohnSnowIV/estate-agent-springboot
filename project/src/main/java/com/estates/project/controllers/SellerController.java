@@ -44,4 +44,9 @@ public class SellerController {
                                @RequestParam(required = false) String phone){
         return this.sellerService.updateSeller(id,firstName,surname,address,postcode,phone);
     }
+
+    @DeleteMapping("/remove/{id}")
+    public Seller removeSeller(@PathVariable int id){
+        return this.sellerService.removeSeller(id);
+    }
 }
