@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/seller")
 public class SellerController {
 
     private SellerService sellerService;
@@ -28,5 +29,19 @@ public class SellerController {
     @PostMapping("/create")
     public Seller createSeller(@RequestBody Seller newSeller){
         return this.sellerService.createSeller(newSeller);
+    }
+
+    // TODO Update Seller Comment:
+    //  This api call will only work locally and has been written to meet
+    //  the minimum MVP requirements.
+    //  Will need to modify this to work with the frontend in due course.
+    @PatchMapping("/update/{id}")
+    public Seller updateSeller(@PathVariable Integer id,
+                               @RequestParam(required = false) String firstName,
+                               @RequestParam(required = false) String surname,
+                               @RequestParam(required = false) String address,
+                               @RequestParam(required = false) String postcode,
+                               @RequestParam(required = false) String phone){
+        return this.sellerService.updateSeller(id,firstName,surname,address,postcode,phone);
     }
 }

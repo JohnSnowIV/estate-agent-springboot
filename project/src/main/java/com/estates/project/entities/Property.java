@@ -21,8 +21,6 @@ public class Property {
     private Integer bedroom;
     private Integer bathroom;
     private Integer garden;
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="sellerId", referencedColumnName = "seller.sellerId")
     private Integer sellerId;
     private String status;
     private String image;
