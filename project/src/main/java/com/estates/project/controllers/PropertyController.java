@@ -40,4 +40,9 @@ public class PropertyController {
         return this.propertyService.updateProperty(Id,address,listed,postcode,type,price
                 ,bedroom,bathroom,garden,sellerId,status,image,description,dateAdded);
     }
+
+    @DeleteMapping("/property/{Id}")
+    public void deleteProperty(@PathVariable Integer Id){
+        this.propertyService.removeProperty(Id);
+    }
 }
