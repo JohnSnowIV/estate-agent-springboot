@@ -18,4 +18,8 @@ public class SellerService {
     public List<Seller> getAll() {
         return this.sellerRepo.findAll();
     }
+
+    public Seller createSeller(Seller newSeller) {
+        return this.sellerRepo.save(newSeller);
+    }
 }
