@@ -2,10 +2,7 @@ package com.estates.project.controllers;
 
 import com.estates.project.entities.Seller;
 import com.estates.project.services.SellerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +13,11 @@ public class SellerController {
 
     public SellerController(SellerService sellerService){
         this.sellerService = sellerService;
+    }
+
+    @GetMapping("/{id}")
+    public Seller getById(@PathVariable int id){
+        return this.sellerService.getById(id);
     }
 
     @GetMapping("/getAll")
