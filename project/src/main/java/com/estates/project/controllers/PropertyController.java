@@ -2,6 +2,7 @@ package com.estates.project.controllers;
 
 import com.estates.project.entities.Property;
 import com.estates.project.services.PropertyService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +19,16 @@ public class PropertyController {
          return this.propertyService.fetchProperties();
     }
 
+    @GetMapping("/property/{Id}")
+    public Property getProperty(@PathVariable Integer Id){
+        return this.propertyService.fetchPropertyById(Id);
+    }
+
     @PostMapping("/property")
     public Property postProperty(@RequestBody Property property){
         return this.propertyService.createProperty(property);
     }
-    @PatchMapping("/property/{id}")
+    @PatchMapping("/property/{Id}")
     public Property updateProperty(@PathVariable Integer Id, @RequestParam(required = false) String address,@RequestParam(required = false) Boolean listed,
                                    @RequestParam(required = false) String postcode, @RequestParam(required = false) String type,
                                    @RequestParam(required = false) Integer price, @RequestParam(required = false) Integer bedroom,

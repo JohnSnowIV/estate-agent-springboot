@@ -4,7 +4,9 @@ import com.estates.project.controllers.PropertyController;
 import com.estates.project.entities.Property;
 import com.estates.project.services.PropertyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.Before;
 import org.hamcrest.Matchers;
+import org.hibernate.jdbc.Expectation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +16,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +45,8 @@ public class TestPropertyController {
 
 
     @Test
-    public void testGetProperties() throws Exception{
+    @Transactional
+    public void testGetProperties() throws Exception {
 
 
         mvc.perform(MockMvcRequestBuilders.get("/property"))
@@ -51,17 +58,29 @@ public class TestPropertyController {
     }
 
     @Test
-    public void testPostProperty() throws Exception{
-        Property newProperty= new Property(true, "3 Inchcape Drive, Manchester", "M9 8JN", "DETACHED", 1000000, 3, 1, 1, 1, "SOLD",
+    @Transactional
+    public void testGetPropertyById() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/property/1"))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)));
+
+    }
+
+
+    @Test
+    @Transactional
+    public void testPostProperty() throws Exception {
+        Property newProperty = new Property(true, "3 Inchcape Drive, Manchester", "M9 8JN", "DETACHED", 1000000, 3, 1, 1, 1, "SOLD",
                 "https://media.istockphoto.com/id/1470006282/photo/for-sale-real-estate-sign-in-front-of-new-house.webp?b=1&s=170667a&w=0&k=20&c=yBoP5dTQZsTf8ZiPehFAnb1AQHc0tsedvN6FRdVmy6Q=",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-        Property compareProperty= new Property(true, "3 Inchcape Drive, Manchester", "M9 8JN", "DETACHED", 1000000, 3, 1, 1, 1, "SOLD",
+        Property compareProperty = new Property(true, "3 Inchcape Drive, Manchester", "M9 8JN", "DETACHED", 1000000, 3, 1, 1, 1, "SOLD",
                 "https://media.istockphoto.com/id/1470006282/photo/for-sale-real-estate-sign-in-front-of-new-house.webp?b=1&s=170667a&w=0&k=20&c=yBoP5dTQZsTf8ZiPehFAnb1AQHc0tsedvN6FRdVmy6Q=",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
         compareProperty.setId(1);
-        String reqBody= mapper.writeValueAsString(newProperty);
-        String compareJSON=mapper.writeValueAsString(compareProperty);
-
+        String reqBody = mapper.writeValueAsString(newProperty);
+        String compareJSON = mapper.writeValueAsString(compareProperty);
 
 
         mvc.perform(MockMvcRequestBuilders.post("/property").content(reqBody)
@@ -70,6 +89,18 @@ public class TestPropertyController {
                 .andDo(print());
 
 
+    }
+
+    @Test
+    @Transactional
+    public void testPatchProperty() throws Exception {
+
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("description", "quaint little place for relaxing");
+
+        mvc.perform(MockMvcRequestBuilders.patch("/property/1").contentType(MediaType.APPLICATION_JSON).params(parameters))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description",Matchers.is("quaint little place for relaxing")));
     }
 
 }
