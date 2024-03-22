@@ -17,6 +17,15 @@ public class BookingService {
 
     public Booking createBooking(Booking newBooking){return this.repo.save(newBooking);}
 
+    public Booking deleteBooking(Integer id){
+        Booking removed = this.getById(id);
+        this.repo.deleteById(id);
+        return removed;}
+
+
+    public Booking getById(Integer id){
+        return this.repo.findById(id).get();}
+
 
 
 

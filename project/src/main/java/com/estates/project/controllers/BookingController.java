@@ -23,7 +23,15 @@ public class BookingController {
         @PostMapping("/create")
         public Booking createBooking(@RequestBody Booking newBooking){return this.service.createBooking(newBooking);}
 
+        @DeleteMapping("/remove/{id}")
+        public Booking deleteBooking(@PathVariable Integer id){
+                return this.service.deleteBooking(id);
+        }
 
+        @GetMapping("/getById/{id}")
+        public Booking getById(@PathVariable Integer id){
+                return this.service.getById(id);
+        }
 
 
 
