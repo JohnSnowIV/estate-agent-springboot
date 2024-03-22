@@ -21,6 +21,7 @@ public class PropertyService {
         return this.propertyRepo.findAll();
     }
 
+
     public Property createProperty(Property property){
         return this.propertyRepo.save(property);
     }
