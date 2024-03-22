@@ -30,6 +30,7 @@ public class Property {
     private Integer bathroom;
     @Column(name="GARDEN")
     private Integer garden;
+
     @Column(name="SELLERID")
     private Integer sellerId;
     @Column(name="STATUS")
