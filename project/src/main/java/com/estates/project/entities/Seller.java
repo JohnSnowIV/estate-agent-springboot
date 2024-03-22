@@ -1,31 +1,26 @@
 package com.estates.project.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="seller")
+//@Table(name="seller")
 public class Seller {
-
-//    Test push
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="First_Name", nullable = false, updatable = true)
+    @Column(name="FIRSTNAME")
     private String firstName;
-    @Column(name="Last_Name", nullable = false, updatable = true)
+    @Column(name="SURNAME")
     private String surname;
-    @Column(name="Address", nullable = false, updatable = true)
+    @Column(name="ADDRESS")
     private String address;
-    @Column(name="PostCode", nullable = false, updatable = true)
+    @Column(name="POSTCODE")
     private String postcode;
-    @Column(name="Phone_Number", nullable = false, updatable = true)
+    @Column(name="PHONE")
     private String phone;
+
 
     public Seller(){
 

@@ -34,9 +34,9 @@ public class SellerController {
     // TODO Update Seller Comment:
     //  This api call will only work locally and has been written to meet
     //  the minimum MVP requirements.
-    //  Will need to modify this to work with the frontend in due course. 
+    //  Will need to modify this to work with the frontend in due course.
     @PatchMapping("/update/{id}")
-    public Seller updateSeller(@PathVariable int id,
+    public Seller updateSeller(@PathVariable Integer id,
                                @RequestParam(required = false) String firstName,
                                @RequestParam(required = false) String surname,
                                @RequestParam(required = false) String address,
