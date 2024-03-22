@@ -1,25 +1,25 @@
 package com.estates.project.entities;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 @Entity
 public class Buyer {
 
     @Id
+    @GeneratedValue
     private Integer buyerId;
-    @Column(name = "first_name", nullable = false, updatable = true)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name="last_name", nullable = false, updatable = true)
+    @Column(name="last_name", nullable = false)
     private String surname;
-    @Column(name="address", nullable = false, updatable = true)
+    @Column(name="address", nullable = false)
     private String address;
-    @Column(name="postcode", nullable = false, updatable = true)
+    @Column(name="postcode", nullable = false)
     private String postcode;
-    @Column(name="phone", nullable = false, updatable = true)
+    @Column(name="phone", nullable = false)
     private String phone;
 
     public Buyer() {
