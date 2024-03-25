@@ -2,6 +2,7 @@ package com.estates.project.services;
 
 import com.estates.project.entities.Booking;
 import com.estates.project.entities.Seller;
+import com.estates.project.exceptions.BookingNotFoundException;
 import com.estates.project.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,19 +21,26 @@ public class BookingService {
 
     public Booking createBooking(Booking newBooking){return this.repo.save(newBooking);}
 
-    public Booking deleteBooking(Integer id){
+    public Booking deleteBooking(Integer id) throws BookingNotFoundException {
         Booking removed = this.getById(id);
         this.repo.deleteById(id);
         return removed;}
 
 
-    public Booking getById(Integer id){
-        return this.repo.findById(id).get();}
+    public Booking getById(Integer id) throws BookingNotFoundException {
+        Booking booking = this.repo.findByUserId(id);
+        if(booking != null){
+            return booking;
+        }
+        else{
+            throw new BookingNotFoundException("Booking not found with id:" +id);
+        }
+    }
 
     public Booking updateBooking(Integer id,
                                  @RequestParam(required = false) Integer propertyId,
                                  @RequestParam(required = false) Integer buyerId,
-                                 @RequestParam(required = false) String dateTime){
+                                 @RequestParam(required = false) String dateTime) throws BookingNotFoundException {
         Booking toUpdate = this.getById(id);
 
         if (propertyId != null) toUpdate.setPropertyId(propertyId);

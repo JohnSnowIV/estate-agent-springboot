@@ -2,6 +2,7 @@ package com.estates.project.controllers;
 
 import com.estates.project.entities.Booking;
 import com.estates.project.entities.Seller;
+import com.estates.project.exceptions.BookingNotFoundException;
 import com.estates.project.services.BookingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +25,12 @@ public class BookingController {
         public Booking createBooking(@RequestBody Booking newBooking){return this.service.createBooking(newBooking);}
 
         @DeleteMapping("/remove/{id}")
-        public Booking deleteBooking(@PathVariable Integer id){
+        public Booking deleteBooking(@PathVariable Integer id) throws BookingNotFoundException {
                 return this.service.deleteBooking(id);
         }
 
         @GetMapping("/{id}")
-        public Booking getById(@PathVariable Integer id){
+        public Booking getById(@PathVariable Integer id) throws BookingNotFoundException {
                 return this.service.getById(id);
         }
 
@@ -37,7 +38,7 @@ public class BookingController {
         public Booking updateBooking(@PathVariable Integer id,
                                      @RequestParam(required = false) Integer propertyId,
                                      @RequestParam(required = false) Integer buyerId,
-                                     @RequestParam(required = false) String dateTime){
+                                     @RequestParam(required = false) String dateTime) throws BookingNotFoundException {
                 return this.service.updateBooking(id,propertyId,buyerId,dateTime);
         }
 
