@@ -27,7 +27,3 @@ INSERT INTO BOOKING (buyerId, propertyId, time)
 VALUES
 (1, 1, '2024-02-28 11:30'),
 (2, 2, '2024-02-28 8:30');
-
-
-
-

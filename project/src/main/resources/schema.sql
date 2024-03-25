@@ -51,4 +51,3 @@ CREATE TABLE BOOKING (
     FOREIGN KEY (propertyId) REFERENCES BUYER(id),
     PRIMARY KEY (id)
 );
-

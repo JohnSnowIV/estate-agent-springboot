@@ -16,7 +16,7 @@ import java.util.List;
 public class BookingController {
         private BookingService service;
         public BookingController(BookingService service){
-            this.service = service;
+                this.service = service;
         }
 
 
