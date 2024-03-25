@@ -16,8 +16,10 @@ public class PropertyController {
     private PropertyService propertyService;
     @GetMapping("/property")
     public List<Property> getProperties(@RequestParam(required = false) String status,
-                                        @RequestParam(required = false)String type){
-         return this.propertyService.fetchProperties(status,type);
+                                        @RequestParam(required = false)String type,
+                                        @RequestParam(required = false,defaultValue = "bedroom") String sort_by,
+                                        @RequestParam(required = false, defaultValue = "DESC") String order){
+         return this.propertyService.fetchProperties(status,type,sort_by,order);
     }
 
     @GetMapping("/property/{Id}")
