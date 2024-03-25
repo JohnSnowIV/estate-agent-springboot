@@ -26,26 +26,26 @@ public class PropertyService {
         if(status!=null && status.equals("for_sale")){
             toReturn.addAll(this.propertyRepo.findForSale(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
-        if(status!=null && status.equals("sold")){
+        else if(status!=null && status.equals("sold")){
             toReturn.addAll(this.propertyRepo.findSold(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
-        if(type!=null && type.equals("detached")){
+        else if(type!=null && type.equals("detached")){
             toReturn.addAll(this.propertyRepo.findDetached(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
-        if(type!=null && type.equals("semi-detached")){
+         else if(type!=null && type.equals("semi-detached")){
             toReturn.addAll(this.propertyRepo.findSemiDetached(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
-        if(type!=null && type.equals("terrace")){
+        else if(type!=null && type.equals("terrace")){
             toReturn.addAll(this.propertyRepo.findTerrace(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
-        if(type!=null && type.equals("apartment")){
+        else if(type!=null && type.equals("apartment")){
             toReturn.addAll(this.propertyRepo.findApartment(Sort.by(Sort.Direction.ASC, sort_by)));
         }
 
-        if(status==null && type==null && order.equals("ASC")){
+        else if(order.equals("ASC")){
             toReturn.addAll(this.propertyRepo.findAll(Sort.by(Sort.Direction.ASC, sort_by)));
         }
-        if(status==null && type==null && order.equals("DESC")){
+        else if(order.equals("DESC")){
             toReturn.addAll(this.propertyRepo.findAll(Sort.by(Sort.Direction.DESC, sort_by)));
         }
 
