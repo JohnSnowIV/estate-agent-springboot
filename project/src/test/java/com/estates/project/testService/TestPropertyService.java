@@ -32,8 +32,8 @@ public class TestPropertyService {
         List<Property> testList= List.of(testProp);
         when(this.propertyRepo.findAll()).thenReturn(testList);
 
-        Assertions.assertEquals(propertyService.fetchProperties().size(),1);
-        Assertions.assertEquals(propertyService.fetchProperties().get(0).getAddress(),"24 Here i am");
+        Assertions.assertEquals(propertyService.fetchProperties(null,null,null,null).size(),1);
+        Assertions.assertEquals(propertyService.fetchProperties(null,null,null,null).get(0).getAddress(),"24 Here i am");
 
     }
 
