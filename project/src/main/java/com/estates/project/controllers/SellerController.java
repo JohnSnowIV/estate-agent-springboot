@@ -10,16 +10,26 @@ import java.util.List;
 @RequestMapping("/seller")
 public class SellerController {
 
-
     private SellerService sellerService;
 
     public SellerController(SellerService sellerService){
         this.sellerService = sellerService;
     }
 
+//    @GetMapping("/{id}")
+//    public Seller getById(@PathVariable int id){
+//        return this.sellerService.getById(id);
+//    }
+
     @GetMapping("/{id}")
-    public Seller getById(@PathVariable int id){
-        return this.sellerService.getById(id);
+    public Seller getById(@PathVariable int id) {
+        Seller returnValue = null;
+        try{
+            returnValue = this.sellerService.getById(id);
+        } catch (Exception e) {
+            returnValue = new Seller();
+        }
+        return returnValue;
     }
 
     @GetMapping("/getAll")
