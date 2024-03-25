@@ -25,6 +25,15 @@ public class Seller {
     public Seller(){
 
     }
+
+    public Seller( String firstName, String surname, String address, String postcode, String phone){
+        this.firstName= firstName;
+        this.surname=surname;
+        this.address=address;
+        this.postcode=postcode;
+        this.phone=phone;
+    }
+
     public Seller(int id, String firstName, String surname, String address, String postcode, String phone){
         this.id= id;
         this.firstName= firstName;
