@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -28,12 +29,18 @@ public class BookingService {
 
 
     public Booking getById(Integer id) throws BookingNotFoundException {
-        Booking booking = this.repo.findByUserId(id);
-        if(booking != null){
+        Booking booking = this.repo.getById(id);
+        System.out.println(booking.getId() );
+        if(booking.getId() != null){
             return booking;
         }
         else{
-            throw new BookingNotFoundException("Booking not found with id:" +id);
+//            try {
+//                throw new BookingNotFoundException("Booking not found with id: " +id);
+//            } catch (BookingNotFoundException e) {
+//                throw new RuntimeException(e);
+//            }
+           throw new BookingNotFoundException("Booking not found with id: "+id);
         }
     }
 

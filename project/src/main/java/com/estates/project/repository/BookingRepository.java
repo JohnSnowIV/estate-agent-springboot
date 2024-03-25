@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking,Integer> {
-    Booking findByUserId(Integer id);
+
 }

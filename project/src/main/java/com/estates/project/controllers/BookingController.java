@@ -4,16 +4,19 @@ import com.estates.project.entities.Booking;
 import com.estates.project.entities.Seller;
 import com.estates.project.exceptions.BookingNotFoundException;
 import com.estates.project.services.BookingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/booking")
 public class BookingController {
+        @Autowired
         private BookingService service;
         public BookingController(BookingService service){
                 this.service = service;
