@@ -38,4 +38,10 @@ public class SellerService {
 
         return this.sellerRepo.save(toUpdate);
     }
+
+    public Seller removeSeller(int id) {
+        Seller toRemove = this.getById(id);
+        this.sellerRepo.deleteById(id);
+        return toRemove;
+    }
 }
