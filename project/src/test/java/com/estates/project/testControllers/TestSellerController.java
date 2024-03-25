@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
@@ -80,18 +82,19 @@ public class TestSellerController {
     @Transactional
     public void testPostSeller() throws Exception {
         Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
-        Seller compareSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789");
+        Seller compareSeller = new Seller(8, "Brian", "McCloudy", "Box", "Beach", "123456789");
         compareSeller.setId(8);
         String reqBody = mapper.writeValueAsString(newSeller);
         String compareJSON = mapper.writeValueAsString(compareSeller);
 
-        mvc.perform(MockMvcRequestBuilders.post("/seller/create")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("/seller/create")
                         .content(reqBody).contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(MockMvcResultMatchers.status().isOk())
-                        .andDo(print())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
+                .andReturn();
 
-
+        assertEquals(compareJSON, mvcResult.getResponse().getContentAsString());
     }
 
     // TODO Need to add delete functionality
