@@ -54,6 +54,8 @@ public class PropertyService {
         return this.propertyRepo.save(toUpdate);
     }
 
-
+    public void removeProperty(Integer Id){
+          this.propertyRepo.deleteById(Id);
+    }
 
 }

@@ -31,15 +31,30 @@ public class TestBookingController {
     void TestCreate() throws Exception{
         Booking newBooking = new Booking(1,3,"2024-03-10 20:44");
         String newBookingAsJson = this.mapper.writeValueAsString(newBooking);
-        RequestBuilder mockRequest = MockMvcRequestBuilders.post("/create").contentType(MediaType.APPLICATION_JSON).content(newBookingAsJson);
+        RequestBuilder mockRequest = MockMvcRequestBuilders.post("/booking/create").contentType(MediaType.APPLICATION_JSON).content(newBookingAsJson);
 
         ResultMatcher checkStatus = MockMvcResultMatchers.status().isOk();
-        Booking createdBooking = new Booking(1,1,3,"2024-03-10 20:44");
+        Booking createdBooking = new Booking(3,1,3,"2024-03-10 20:44");
         String createdBookingAsJson = this.mapper.writeValueAsString(createdBooking);
 
         ResultMatcher checkBody = MockMvcResultMatchers.content().json(createdBookingAsJson);
         this.mvc.perform(mockRequest).andExpect( checkStatus).andExpect(checkBody);
     }
+
+//    @Test
+//    public void TestDelete() throws Exception{
+//        Booking newBooking = new Booking(1,3,"2024-03-10 20:44");
+//        String newBookingAsJson = this.mapper.writeValueAsString(newBooking);
+//        RequestBuilder mockRequest = MockMvcRequestBuilders.post("/booking/create").contentType(MediaType.APPLICATION_JSON).content(newBookingAsJson);
+//
+//        ResultMatcher checkStatus = MockMvcResultMatchers.status().isOk();
+//        Booking createdBooking = new Booking(3,1,3,"2024-03-10 20:44");
+//        String createdBookingAsJson = this.mapper.writeValueAsString(createdBooking);
+//
+//        ResultMatcher checkBody = MockMvcResultMatchers.content().json(createdBookingAsJson);
+//        this.mvc.perform(mockRequest).andExpect( checkStatus).andExpect(checkBody);
+//
+//    }
 
 
 }
