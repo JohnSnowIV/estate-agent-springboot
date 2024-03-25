@@ -1,25 +1,22 @@
 package com.estates.project.entities;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
+import jakarta.persistence.*;
 
 @Entity
 public class Buyer {
 
     @Id
-    private Integer buyerId;
-    @Column(name = "first_name", nullable = false, updatable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "FIRSTNAME")
     private String firstName;
-    @Column(name="last_name", nullable = false, updatable = true)
+    @Column(name="SURNAME")
     private String surname;
-    @Column(name="address", nullable = false, updatable = true)
+    @Column(name="ADDRESS")
     private String address;
-    @Column(name="postcode", nullable = false, updatable = true)
+    @Column(name="POSTCODE")
     private String postcode;
-    @Column(name="phone", nullable = false, updatable = true)
+    @Column(name="PHONE")
     private String phone;
 
     public Buyer() {
@@ -34,8 +31,8 @@ public class Buyer {
         this.phone = phone;
     }
 
-    public Buyer(Integer buyerId, String firstName, String surname, String address, String postcode, String phone) {
-        this.buyerId = buyerId;
+    public Buyer(int id, String firstName, String surname, String address, String postcode, String phone) {
+        this.id = id;
         this.firstName = firstName;
         this.surname = surname;
         this.address = address;
@@ -43,8 +40,8 @@ public class Buyer {
         this.phone = phone;
     }
 
-    public void setId(int id) {
-        this.buyerId = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setFirstName(String firstName) {
@@ -68,27 +65,27 @@ public class Buyer {
     }
 
     public Integer getId() {
-        return buyerId;
+        return this.id;
     }
 
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getSurname() {
-        return surname;
+        return this.surname;
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public String getPostcode() {
-        return postcode;
+        return this.postcode;
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 }
