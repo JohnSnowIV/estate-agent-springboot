@@ -3,6 +3,7 @@ package com.estates.project.services;
 import com.estates.project.entities.Property;
 import com.estates.project.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,30 +20,37 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepo;
 
-    public List<Property> fetchProperties(String status, String type){
+    public List<Property> fetchProperties(String status, String type,String sort_by,String order){
         List<Property> toReturn= new ArrayList<>();
+
         if(status!=null && status.equals("for_sale")){
-            toReturn.addAll(this.propertyRepo.findForSale());
+            toReturn.addAll(this.propertyRepo.findForSale(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
         if(status!=null && status.equals("sold")){
-            toReturn.addAll(this.propertyRepo.findSold());
+            toReturn.addAll(this.propertyRepo.findSold(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
         if(type!=null && type.equals("detached")){
-            toReturn.addAll(this.propertyRepo.findDetached());
+            toReturn.addAll(this.propertyRepo.findDetached(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
         if(type!=null && type.equals("semi-detached")){
-            toReturn.addAll(this.propertyRepo.findSemiDetached());
+            toReturn.addAll(this.propertyRepo.findSemiDetached(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
         if(type!=null && type.equals("terrace")){
-            toReturn.addAll(this.propertyRepo.findTerrace());
+            toReturn.addAll(this.propertyRepo.findTerrace(Sort.by(order.equals("ASC")?Sort.Direction.ASC:Sort.Direction.DESC, sort_by)));
         }
         if(type!=null && type.equals("apartment")){
-            toReturn.addAll(this.propertyRepo.findApartment());
+            toReturn.addAll(this.propertyRepo.findApartment(Sort.by(Sort.Direction.ASC, sort_by)));
         }
-        if(status==null && type==null ){
-            toReturn.addAll(this.propertyRepo.findAll());
+
+        if(status==null && type==null && order.equals("ASC")){
+            toReturn.addAll(this.propertyRepo.findAll(Sort.by(Sort.Direction.ASC, sort_by)));
         }
+        if(status==null && type==null && order.equals("DESC")){
+            toReturn.addAll(this.propertyRepo.findAll(Sort.by(Sort.Direction.DESC, sort_by)));
+        }
+
         return toReturn;
+
     }
 
 
