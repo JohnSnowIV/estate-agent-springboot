@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/buyer")
 public class BuyerController {
     private BuyerService service;
 
@@ -15,17 +14,17 @@ public class BuyerController {
         this.service = service;
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/buyer")
     public List<Buyer> getAll() {
         return this.service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/buyer/{id}")
     public Buyer getById(@PathVariable int id) {
         return this.service.getById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/buyer")
     public Buyer createBuyer(@RequestBody Buyer buyer){
         return this.service.createBuyer(buyer);
     }
