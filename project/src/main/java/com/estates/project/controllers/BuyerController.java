@@ -2,31 +2,40 @@ package com.estates.project.controllers;
 
 import com.estates.project.entities.Buyer;
 import com.estates.project.services.BuyerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class BuyerController {
-    private BuyerService service;
+    @Autowired
+    private BuyerService buyerService;
 
     public BuyerController(BuyerService service){
-        this.service = service;
+        this.buyerService = service;
     }
 
     @GetMapping("/buyer")
     public List<Buyer> getAll() {
-        return this.service.getAll();
+        return this.buyerService.getAll();
     }
 
     @GetMapping("/buyer/{id}")
     public Buyer getById(@PathVariable int id) {
-        return this.service.getById(id);
+        return this.buyerService.getById(id);
     }
 
     @PostMapping("/buyer")
     public Buyer createBuyer(@RequestBody Buyer buyer){
-        return this.service.createBuyer(buyer);
+        return this.buyerService.createBuyer(buyer);
     }
 
+    @DeleteMapping("/buyer/{id}")
+    public void deleteBuyer(@PathVariable Integer id) {
+        this.buyerService.deleteBuyer(id);
+    }
 }
+
