@@ -15,8 +15,9 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
     @GetMapping("/property")
-    public List<Property> getProperties(){
-         return this.propertyService.fetchProperties();
+    public List<Property> getProperties(@RequestParam(required = false) String status,
+                                        @RequestParam(required = false)String type){
+         return this.propertyService.fetchProperties(status,type);
     }
 
     @GetMapping("/property/{Id}")
