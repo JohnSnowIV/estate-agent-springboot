@@ -93,4 +93,7 @@ public class TestSellerController {
 
 
     }
+
+    // TODO Need to add delete functionality
+    //  appropriate exception handling - ie FKs when seller has properties.
 }
