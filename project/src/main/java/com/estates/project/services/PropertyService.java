@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,8 +19,30 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepo;
 
-    public List<Property> fetchProperties(){
-        return this.propertyRepo.findAll();
+    public List<Property> fetchProperties(String status, String type){
+        List<Property> toReturn= new ArrayList<>();
+        if(status!=null && status.equals("for_sale")){
+            toReturn.addAll(this.propertyRepo.findForSale());
+        }
+        if(status!=null && status.equals("sold")){
+            toReturn.addAll(this.propertyRepo.findSold());
+        }
+        if(type!=null && type.equals("detached")){
+            toReturn.addAll(this.propertyRepo.findDetached());
+        }
+        if(type!=null && type.equals("semi-detached")){
+            toReturn.addAll(this.propertyRepo.findSemiDetached());
+        }
+        if(type!=null && type.equals("terrace")){
+            toReturn.addAll(this.propertyRepo.findTerrace());
+        }
+        if(type!=null && type.equals("apartment")){
+            toReturn.addAll(this.propertyRepo.findApartment());
+        }
+        if(status==null && type==null ){
+            toReturn.addAll(this.propertyRepo.findAll());
+        }
+        return toReturn;
     }
 
 
