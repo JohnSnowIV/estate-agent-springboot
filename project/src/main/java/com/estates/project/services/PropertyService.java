@@ -24,10 +24,10 @@ public class PropertyService {
 
     public List<Property> fetchProperties(String status, String type,String sort_by,String order){
         List<Property> toReturn= new ArrayList<>();
-        if(order==null){
-            order="bedroom";
+        if(order==null || order.equals("null")){
+            order="desc";
         }
-        if(sort_by==null){
+        if(sort_by==null || sort_by.equals("null")){
             sort_by="bedroom";
         }
         order=order.toUpperCase();
@@ -57,7 +57,7 @@ public class PropertyService {
         else if(order.equals("ASC")){
             toReturn.addAll(this.propertyRepo.findAll(Sort.by(Sort.Direction.ASC, sort_by)));
         }
-        else if(order.equals("DESC")){
+        else if(order.equals("DESC") ){
             toReturn.addAll(this.propertyRepo.findAll(Sort.by(Sort.Direction.DESC, sort_by)));
         }
 
