@@ -48,7 +48,7 @@ public class TestSellerController {
     @Test
     @Transactional
     public void testGetSellers() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
+        mvc.perform(MockMvcRequestBuilders.get("/seller"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print())
@@ -72,7 +72,7 @@ public class TestSellerController {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("firstName", "Josie");
 
-        mvc.perform(MockMvcRequestBuilders.patch("/seller/update/1").contentType(MediaType.APPLICATION_JSON).params(parameters))
+        mvc.perform(MockMvcRequestBuilders.patch("/seller/1").contentType(MediaType.APPLICATION_JSON).params(parameters))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName",Matchers.is("Josie")));
@@ -87,7 +87,7 @@ public class TestSellerController {
         String reqBody = mapper.writeValueAsString(newSeller);
         String compareJSON = mapper.writeValueAsString(compareSeller);
 
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("/seller/create")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("/seller")
                         .content(reqBody).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print())
@@ -99,4 +99,45 @@ public class TestSellerController {
 
     // TODO Need to add delete functionality
     //  appropriate exception handling - ie FKs when seller has properties.
+
+    @Test
+    @Transactional
+    public void testRemoveSeller() throws Exception {
+        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
+        String reqBody = mapper.writeValueAsString(newSeller);
+
+//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(7)));
+
+       MvcResult postRequest = mvc.perform(MockMvcRequestBuilders.post("/seller")
+                        .content(reqBody).contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andDo(print())
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
+                        .andReturn();
+
+//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(8)));
+
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/seller/8")
+                        .content(postRequest.getResponse().getContentAsString()).contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andDo(print())
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
+                        .andReturn();
+//
+//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(7)));
+
+        assertEquals(postRequest.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
+    }
 }
