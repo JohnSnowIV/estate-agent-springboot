@@ -81,7 +81,7 @@ public class TestSellerController_Hold {
     public void testPostSeller() throws Exception {
         Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
         Seller compareSeller = new Seller(8, "Brian", "McCloudy", "Box", "Beach", "123456789");
-        compareSeller.setId(8);
+//        compareSeller.setId(8);
         String reqBody = mapper.writeValueAsString(newSeller);
         String compareJSON = mapper.writeValueAsString(compareSeller);
 

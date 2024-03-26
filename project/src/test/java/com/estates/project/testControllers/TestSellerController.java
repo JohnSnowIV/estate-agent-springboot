@@ -6,11 +6,13 @@ import com.estates.project.entities.Property;
 import com.estates.project.entities.Seller;
 import com.estates.project.services.SellerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.Before;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -28,6 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @AutoConfigureMockMvc
 public class TestSellerController {
 
+    //Initialising global newSeller
+    Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
+
+    //Storing the postSeller as a variable to compare
+    public static MvcResult postComp; //Used to compare the returned result of the remove test with created seller.
     @Autowired
     private SellerController sellerController;
     @Autowired
@@ -46,7 +53,7 @@ public class TestSellerController {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void testGetSellers() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/seller"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -56,7 +63,7 @@ public class TestSellerController {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void testGetSellerById() throws Exception{
         mvc.perform(MockMvcRequestBuilders.get("/seller/1"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -64,26 +71,14 @@ public class TestSellerController {
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)));
     }
-
-    @Test
-    @Transactional
-    public void testPatchSeller() throws Exception {
-
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("firstName", "Josie");
-
-        mvc.perform(MockMvcRequestBuilders.patch("/seller/1").contentType(MediaType.APPLICATION_JSON).params(parameters))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(print())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName",Matchers.is("Josie")));
-    }
-
-    @Test
-    @Transactional
+    @Test //Adds a new seller
+//    @Transactional
+    @Order(1)
     public void testPostSeller() throws Exception {
-        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
+//        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
         Seller compareSeller = new Seller(8, "Brian", "McCloudy", "Box", "Beach", "123456789");
-        compareSeller.setId(8);
+//        compareSeller.setId(8);
+
         String reqBody = mapper.writeValueAsString(newSeller);
         String compareJSON = mapper.writeValueAsString(compareSeller);
 
@@ -94,50 +89,50 @@ public class TestSellerController {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
                 .andReturn();
 
+        postComp = mvcResult;
+
         assertEquals(compareJSON, mvcResult.getResponse().getContentAsString());
     }
 
-    // TODO Need to add delete functionality
-    //  appropriate exception handling - ie FKs when seller has properties.
+    @Test
+//    @Transactional
+    @Order(2)
+    public void testPatchSeller() throws Exception {
+//        mvc.perform(MockMvcRequestBuilders.get("/seller"))
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print());
+
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("firstName", "Josie");
+
+        mvc.perform(MockMvcRequestBuilders.patch("/seller/8").contentType(MediaType.APPLICATION_JSON).params(parameters))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName",Matchers.is("Josie")));
+    }
 
     @Test
-    @Transactional
+    @Order(3)
+//    @Transactional
     public void testRemoveSeller() throws Exception {
-        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
-        String reqBody = mapper.writeValueAsString(newSeller);
+//        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
+//        String reqBody = mapper.writeValueAsString(newSeller);
 
-//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
-//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andDo(print())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(7)));
-
-       MvcResult postRequest = mvc.perform(MockMvcRequestBuilders.post("/seller")
-                        .content(reqBody).contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(MockMvcResultMatchers.status().isOk())
-                        .andDo(print())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
-                        .andReturn();
-
-//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
-//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andDo(print())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(8)));
+//       MvcResult postRequest = mvc.perform(MockMvcRequestBuilders.post("/seller")
+//                        .content(reqBody).contentType(MediaType.APPLICATION_JSON))
+//                        .andExpect(MockMvcResultMatchers.status().isOk())
+//                        .andDo(print())
+//                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
+//                        .andReturn();
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/seller/8")
-                        .content(postRequest.getResponse().getContentAsString()).contentType(MediaType.APPLICATION_JSON))
+                        .content(postComp.getResponse().getContentAsString()).contentType(MediaType.APPLICATION_JSON))
                         .andExpect(MockMvcResultMatchers.status().isOk())
                         .andDo(print())
                         .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
                         .andReturn();
-//
-//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
-//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andDo(print())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(7)));
 
-        assertEquals(postRequest.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
+        assertEquals(postComp.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
     }
 }
