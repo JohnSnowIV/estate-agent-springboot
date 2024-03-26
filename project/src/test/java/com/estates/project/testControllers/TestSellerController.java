@@ -99,4 +99,45 @@ public class TestSellerController {
 
     // TODO Need to add delete functionality
     //  appropriate exception handling - ie FKs when seller has properties.
+
+    @Test
+    @Transactional
+    public void testRemoveSeller() throws Exception {
+        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
+        String reqBody = mapper.writeValueAsString(newSeller);
+
+//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(7)));
+
+       MvcResult postRequest = mvc.perform(MockMvcRequestBuilders.post("/seller/create")
+                        .content(reqBody).contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andDo(print())
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
+                        .andReturn();
+
+//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(8)));
+
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/seller/remove/8")
+                        .content(postRequest.getResponse().getContentAsString()).contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andDo(print())
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
+                        .andReturn();
+//
+//        mvc.perform(MockMvcRequestBuilders.get("/seller/getAll"))
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(7)));
+
+        assertEquals(postRequest.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
+    }
 }
