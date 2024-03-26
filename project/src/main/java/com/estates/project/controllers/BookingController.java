@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/booking")
 public class BookingController {
         private BookingService service;
         public BookingController(BookingService service){
@@ -20,20 +19,20 @@ public class BookingController {
 
 
 
-        @PostMapping("/create")
+        @PostMapping("/booking")
         public Booking createBooking(@RequestBody Booking newBooking){return this.service.createBooking(newBooking);}
 
-        @DeleteMapping("/remove/{id}")
+        @DeleteMapping("/booking/{id}")
         public Booking deleteBooking(@PathVariable Integer id){
                 return this.service.deleteBooking(id);
         }
 
-        @GetMapping("/{id}")
+        @GetMapping("/booking/{id}")
         public Booking getById(@PathVariable Integer id){
                 return this.service.getById(id);
         }
 
-        @PatchMapping("/update/{id}")
+        @PatchMapping("/booking/{id}")
         public Booking updateBooking(@PathVariable Integer id,
                                      @RequestParam(required = false) Integer propertyId,
                                      @RequestParam(required = false) Integer buyerId,
@@ -41,7 +40,7 @@ public class BookingController {
                 return this.service.updateBooking(id,propertyId,buyerId,dateTime);
         }
 
-        @GetMapping("/getAll")
+        @GetMapping("/booking")
         public List<Booking> getAll(){
                 return this.service.getAll();
         }

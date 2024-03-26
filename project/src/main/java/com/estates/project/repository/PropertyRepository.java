@@ -25,5 +25,4 @@ public interface PropertyRepository extends JpaRepository<Property,Integer> {
     @Query("SELECT p FROM Property p WHERE p.type='APARTMENT'")
     List<Property> findApartment(Sort sort);
 
-
 }

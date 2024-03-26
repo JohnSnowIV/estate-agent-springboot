@@ -32,16 +32,9 @@ public class PropertyController {
         return this.propertyService.createProperty(property);
     }
     @PatchMapping("/property/{Id}")
-    public Property updateProperty(@PathVariable Integer Id, @RequestParam(required = false) String address,@RequestParam(required = false) Boolean listed,
-                                   @RequestParam(required = false) String postcode, @RequestParam(required = false) String type,
-                                   @RequestParam(required = false) Integer price, @RequestParam(required = false) Integer bedroom,
-                                   @RequestParam(required = false) Integer bathroom, @RequestParam(required = false) Integer garden,
-                                   @RequestParam(required = false) Integer sellerId,@RequestParam(required = false) String status, @RequestParam(required = false) String image,
-                                   @RequestParam(required = false)String description,
-                                   @RequestParam(required = false) LocalDateTime dateAdded){
+    public Property updateProperty(@PathVariable Integer Id, @RequestBody Property incompleteProperty){
 
-        return this.propertyService.updateProperty(Id,address,listed,postcode,type,price
-                ,bedroom,bathroom,garden,sellerId,status,image,description,dateAdded);
+        return this.propertyService.updateProperty(Id,incompleteProperty);
     }
 
     @DeleteMapping("/property/{Id}")
@@ -49,3 +42,4 @@ public class PropertyController {
         this.propertyService.removeProperty(Id);
     }
 }
+
