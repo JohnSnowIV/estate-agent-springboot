@@ -4,6 +4,7 @@ import com.estates.project.controllers.PropertyController;
 import com.estates.project.entities.Property;
 import com.estates.project.services.PropertyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.aspectj.lang.annotation.Before;
 import org.hamcrest.Matchers;
 import org.hibernate.jdbc.Expectation;
@@ -95,10 +96,11 @@ public class TestPropertyController {
     @Transactional
     public void testPatchProperty() throws Exception {
 
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("description", "quaint little place for relaxing");
 
-        mvc.perform(MockMvcRequestBuilders.patch("/property/1").contentType(MediaType.APPLICATION_JSON).params(parameters))
+        Property property= new Property();
+        property.setDescription("quaint little place for relaxing");
+        String propJSON=mapper.writeValueAsString(property);
+        mvc.perform(MockMvcRequestBuilders.patch("/property/1").contentType(MediaType.APPLICATION_JSON).content(propJSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description",Matchers.is("quaint little place for relaxing")));
     }
