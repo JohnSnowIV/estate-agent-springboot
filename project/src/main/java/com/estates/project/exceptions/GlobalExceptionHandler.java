@@ -17,20 +17,20 @@ import java.time.format.DateTimeFormatter;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e){
-        return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage() + " ("+e.getClass()+")", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseBody
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    private Response handleMessage(RuntimeException e) {
-        Response response = new Response();
-        response.setTimestamp(ZonedDateTime.now().format(DateTimeFormatter.ISO_INSTANT));
-        response.setError("Not Found");
-        response.setStatus(404);
-        response.setException("com.TaskNotFoundException");
-        response.setMessage("Unknown Task");
-        return response;
+    public ResponseEntity<String> handleException(Exception e) {
+        return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage() + " (" + e.getClass() + ")", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
+//
+//    @ExceptionHandler(RuntimeException.class)
+//    @ResponseBody
+//    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+//    private Response handleMessage(RuntimeException e) {
+//        Response response = new Response();
+//        response.setTimestamp(ZonedDateTime.now().format(DateTimeFormatter.ISO_INSTANT));
+//        response.setError("Not Found");
+//        response.setStatus(404);
+//        response.setException("com.TaskNotFoundException");
+//        response.setMessage("Unknown Task");
+//        return response;
+
