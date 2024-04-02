@@ -3,6 +3,7 @@ package com.estates.project.controllers;
 import com.estates.project.entities.Buyer;
 import com.estates.project.entities.Seller;
 import com.estates.project.services.BuyerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class BuyerController {
     }
 
     @PostMapping("/buyer")
-    public Buyer createBuyer(@RequestBody Buyer buyer){
+    public Buyer createBuyer(@RequestBody @Valid Buyer buyer){
         return this.buyerService.createBuyer(buyer);
     }
 

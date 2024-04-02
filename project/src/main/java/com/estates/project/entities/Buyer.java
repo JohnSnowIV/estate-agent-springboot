@@ -1,6 +1,7 @@
 package com.estates.project.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Buyer {
@@ -15,8 +16,10 @@ public class Buyer {
     @Column(name="ADDRESS")
     private String address;
     @Column(name="POSTCODE")
+    @Pattern(regexp = "^([A-Z][A-HJ-Y]?[0-9][A-Z0-9]? ?[0-9][A-Z]{2}|GIR ?0A{2})$", message ="wrong format")
     private String postcode;
     @Column(name="PHONE")
+    @Pattern(regexp = "^[0-9]{3}$", message = "wrong format phone")
     private String phone;
 
     public Buyer() {
