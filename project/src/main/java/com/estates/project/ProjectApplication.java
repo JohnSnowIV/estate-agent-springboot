@@ -17,6 +17,7 @@ public class ProjectApplication {
 				registry.addMapping("/**")
 						.allowedOrigins("http://localhost:5173")
 						.allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE");
+						//.allowedHeaders("Access-Control-Request-Headers", "Access-Control-Request-Method", "X-Requested-With", "Access-Control-Allow-Headers");
 			}
 		};
 	}

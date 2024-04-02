@@ -40,7 +40,7 @@ public class Property {
     @Column(name="DESCRIPTION")
     private String description;
     @Column(name="DATEADDED")
-    private LocalDateTime dateAdded;
+    private String dateAdded;
 
     public Property(){
 
@@ -112,7 +112,7 @@ public class Property {
         return sellerId;
     }
 
-    public LocalDateTime getDateAdded() {
+    public String getDateAdded() {
         return dateAdded;
     }
 
@@ -188,7 +188,7 @@ public class Property {
         this.status = status;
     }
 
-    public void setDateAdded(LocalDateTime dateAdded) {
+    public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
     }
 
