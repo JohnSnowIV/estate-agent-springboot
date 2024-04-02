@@ -1,6 +1,7 @@
 package com.estates.project.testControllers;
 
 import com.estates.project.entities.Buyer;
+import com.estates.project.repository.BuyerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TestBuyerController {
@@ -21,6 +27,9 @@ public class TestBuyerController {
 
     @Autowired
     private ObjectMapper mapper;
+
+    @Autowired
+    private BuyerRepository buyerRepository;
 
     @Test
     void testCreateBuyer() throws Exception {
@@ -38,7 +47,7 @@ public class TestBuyerController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(newBuyerAsJson);
 
-        ResultMatcher checkStatus = MockMvcResultMatchers.status().isOk();
+        ResultMatcher checkStatus = status().isOk();
         Buyer createdBuyer = new Buyer(
                 4,
                 "Bob",
@@ -53,5 +62,12 @@ public class TestBuyerController {
 
         this.mvc.perform(mockRequest).andExpect(checkStatus).andExpect(checkBody);
 
+    }
+
+    @Test
+    public void testBuyerDeleteAPI() throws Exception
+    {
+        mvc.perform( MockMvcRequestBuilders.delete("/buyer/{id}", 6) )
+                .andExpect(status().isAccepted());
     }
 }
