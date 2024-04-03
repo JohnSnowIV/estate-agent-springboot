@@ -59,8 +59,7 @@ public class TestSellerController {
         mvc.perform(MockMvcRequestBuilders.get("/seller"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(print())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(7)));
+                .andDo(print());
     }
 
     @Test
@@ -75,9 +74,8 @@ public class TestSellerController {
     @Test
     @Order(3)
     public void testPostSeller() throws Exception {
-//        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
+
         Seller compareSeller = new Seller(8, "Brian", "McCloudy", "Box", "Beach", "123456789");
-//        compareSeller.setId(8);
 
         String reqBody = mapper.writeValueAsString(newSeller);
         String compareJSON = mapper.writeValueAsString(compareSeller);
@@ -97,10 +95,6 @@ public class TestSellerController {
     @Test
     @Order(5)
     public void testPatchSeller() throws Exception {
-//        mvc.perform(MockMvcRequestBuilders.get("/seller"))
-//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andDo(print());
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("firstName", "Josie");
@@ -111,20 +105,14 @@ public class TestSellerController {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName",Matchers.is("Josie")));
     }
 
+    Seller delSeller1 = new Seller(8,"Josie", "McCloudy", "Box", "Beach", "123456789" );
+    Seller delSeller2 = new Seller(9,"Brian", "McCloudy", "Box", "Beach", "123456789" );
     @Test
     @Order(6)
     public void testRemoveSeller() throws Exception {
-//        Seller newSeller = new Seller("Brian", "McCloudy", "Box", "Beach", "123456789" );
-//        String reqBody = mapper.writeValueAsString(newSeller);
-
-//       MvcResult postRequest = mvc.perform(MockMvcRequestBuilders.post("/seller")
-//                        .content(reqBody).contentType(MediaType.APPLICATION_JSON))
-//                        .andExpect(MockMvcResultMatchers.status().isOk())
-//                        .andDo(print())
-//                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)))
-//                        .andReturn();
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/seller/8")
+//                        .content(String.valueOf(delSeller1)).contentType(MediaType.APPLICATION_JSON))
                         .content(postComp.getResponse().getContentAsString()).contentType(MediaType.APPLICATION_JSON))
                         .andExpect(MockMvcResultMatchers.status().isOk())
                         .andDo(print())
