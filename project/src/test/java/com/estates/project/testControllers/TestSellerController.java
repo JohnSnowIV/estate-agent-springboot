@@ -70,26 +70,27 @@ public class TestSellerController {
     @Order(3)
     public void testPostSeller() throws Exception {
 
-//        Seller compareSeller = new Seller(8, "Brian", "McCloudy", "Box", "Beach", "123456789");
-
         String reqBody = mapper.writeValueAsString(newSeller);
-//        String compareJSON = mapper.writeValueAsString(compareSeller);
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("/seller")
                         .content(reqBody).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andDo(print())
+                .andDo(print())
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(idOut2)))
                 .andReturn();
 
         postComp = mvcResult;
 
+        // Scooping the auto generated id:
         String idOut = mvcResult.getResponse().getContentAsString();
         idOut = String.copyValueOf(idOut.toCharArray(), 6, 2);
         idOut2 = Integer.parseInt(idOut);
 
-        System.out.println(idOut2);
-        System.out.println(mvcResult.getResponse().getContentAsString());
+//        Seller compareSeller = new Seller(idOut2, "Brian", "McCloudy", "Box", "Beach", "123456789");
+//        String compareJSON = mapper.writeValueAsString(compareSeller);
+//
+//        System.out.println(idOut2);
+//        System.out.println(mvcResult.getResponse().getContentAsString());
 
 //        assertEquals(compareJSON, mvcResult.getResponse().getContentAsString());
     }
@@ -97,7 +98,6 @@ public class TestSellerController {
     @Test
     @Order(4)
     public void testGetSellerById() throws Exception{
-//        idOut2 = 14;
 
         MvcResult getIdresult = mvc.perform(MockMvcRequestBuilders.get("/seller/"+idOut2))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -112,8 +112,6 @@ public class TestSellerController {
     @Order(5)
     public void testPatchSeller() throws Exception {
 
-//        idOut2 = 14;
-
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("firstName", "Josie");
 
@@ -126,12 +124,12 @@ public class TestSellerController {
     @Test
     @Order(6)
     public void testRemoveSeller() throws Exception {
-//        Seller delSeller1 = new Seller(14,"Josie", "McCloudy", "Box", "Beach", "123456789" );
-//        Seller delSeller2 = new Seller(9,"Brian", "McCloudy", "Box", "Beach", "123456789" );
+//        idOut2=16;
+//        Seller delSeller1 = new Seller(idOut2,"Josie", "McCloudy", "Box", "Beach", "123456789" );
+//        Seller delSeller2 = new Seller(idOut2,"Brian", "McCloudy", "Box", "Beach", "123456789" );
 
-//        idOut2 = 14;
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/seller/"+idOut2)
-//                        .content(String.valueOf(delSeller1)).contentType(MediaType.APPLICATION_JSON))
+//                        .content(String.valueOf(delSeller2)).contentType(MediaType.APPLICATION_JSON))
                         .content(postComp.getResponse().getContentAsString()).contentType(MediaType.APPLICATION_JSON))
                         .andExpect(MockMvcResultMatchers.status().isOk())
                         .andDo(print())
@@ -140,5 +138,13 @@ public class TestSellerController {
 
 //        assertEquals(postComp.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
 //        assertNotSame(postComp.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
+    }
+    @Test
+    @Order(7)
+    public void testGetSellersFin() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/seller"))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print());
     }
 }
