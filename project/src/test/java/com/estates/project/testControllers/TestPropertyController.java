@@ -8,12 +8,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.jayway.jsonpath.JsonPath;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Before;
 import org.hamcrest.Matchers;
 import org.hibernate.jdbc.Expectation;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.internal.matchers.GreaterThan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestPropertyController {
 
     @Autowired
@@ -54,6 +54,7 @@ public class TestPropertyController {
 
     @Test
     @Transactional
+    @Order(1)
     public void testGetProperties() throws Exception {
 
 
@@ -74,6 +75,7 @@ public class TestPropertyController {
 
     @Test
     @Transactional
+    @Order(2)
     public void testGetPropertyById() throws Exception{
         mvc.perform(MockMvcRequestBuilders.get("/property/1"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -86,6 +88,7 @@ public class TestPropertyController {
 
     @Test
     @Transactional
+    @Order(2)
     public void testPostProperty() throws Exception {
         Property newProperty = new Property(true, "3 Inchcape Drive, Manchester", "M9 8JN", "DETACHED", 1000000, 3, 1, 1, 1, "SOLD",
                 "https://media.istockphoto.com/id/1470006282/photo/for-sale-real-estate-sign-in-front-of-new-house.webp?b=1&s=170667a&w=0&k=20&c=yBoP5dTQZsTf8ZiPehFAnb1AQHc0tsedvN6FRdVmy6Q=",
@@ -108,6 +111,7 @@ public class TestPropertyController {
 
     @Test
     @Transactional
+    @Order(3)
     public void testPatchProperty() throws Exception {
 
 
@@ -117,6 +121,20 @@ public class TestPropertyController {
         mvc.perform(MockMvcRequestBuilders.patch("/property/1").contentType(MediaType.APPLICATION_JSON).content(propJSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description",Matchers.is("quaint little place for relaxing")));
+    }
+
+    @Test
+    @Transactional
+    @Order(4)
+    public void testDeleteProperty() throws Exception{
+
+        mvc.perform(MockMvcRequestBuilders.delete("/property/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        mvc.perform(MockMvcRequestBuilders.get("/property/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+
     }
 
 }
