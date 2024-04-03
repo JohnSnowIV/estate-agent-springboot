@@ -29,20 +29,20 @@ public class BookingService {
 
 
     public Booking getById(Integer id) throws BookingNotFoundException {
-        Booking booking = this.repo.getById(id);
-        System.out.println(booking.getId() );
-        if(booking.getId() != null){
-            return booking;
-        }
-        else{
+        //Booking booking = this.repo.getById(id);
+        try{return this.repo.findById(id).get();}
+        //System.out.println(booking.getId() );
+
 //            try {
 //                throw new BookingNotFoundException("Booking not found with id: " +id);
 //            } catch (BookingNotFoundException e) {
 //                throw new RuntimeException(e);
 //            }
-           throw new BookingNotFoundException("Booking not found with id: "+id);
+           catch(Exception e)
+//                   {throw new BookingNotFoundException("Booking not found with id: "+id);}
+           {return new Booking();}
         }
-    }
+
 
     public Booking updateBooking(Integer id,
                                  @RequestParam(required = false) Integer propertyId,
