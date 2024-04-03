@@ -18,7 +18,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
-        return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage() + " (" + e.getClass() + ")", HttpStatus.INTERNAL_SERVER_ERROR);
+        if(e.getMessage().equals("No value present")){
+            return new ResponseEntity<>(e.getMessage()+" 404" , HttpStatus.NOT_FOUND);
+        }
+
+            return new ResponseEntity<>(e.getMessage()+" 400" , HttpStatus.BAD_REQUEST);
+
+
     }
 }
 //

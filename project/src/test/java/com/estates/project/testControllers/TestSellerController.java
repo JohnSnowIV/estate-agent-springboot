@@ -80,8 +80,10 @@ public class TestSellerController {
         objectId = jsonResponse.get("id").asInt();
         System.out.println(objectId);
 
+
         Seller compareSeller = new Seller(objectId, "Brian", "McCloudy", "Box", "Beach", "123456789");
         String compareJSON = mapper.writeValueAsString(compareSeller);
+
 
         assertEquals(compareJSON, mvcResult.getResponse().getContentAsString());
     }
