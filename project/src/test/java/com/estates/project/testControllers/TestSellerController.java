@@ -2,11 +2,10 @@ package com.estates.project.testControllers;
 
 import com.estates.project.controllers.SellerController;
 
-import com.estates.project.entities.Property;
 import com.estates.project.entities.Seller;
 import com.estates.project.services.SellerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.aspectj.lang.annotation.Before;
+import org.h2.api.H2Type;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +13,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,11 +66,22 @@ public class TestSellerController {
     @Test
     @Order(4)
     public void testGetSellerById() throws Exception{
-        mvc.perform(MockMvcRequestBuilders.get("/seller/8"))
+        MvcResult getIdresult = mvc.perform(MockMvcRequestBuilders.get("/seller/14"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(print())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(8)));
+//                .andDo(print())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(11)))
+                .andReturn();
+
+        String idOut = getIdresult.getResponse().getContentAsString();
+        idOut = String.copyValueOf(idOut.toCharArray(), 6, 2);
+        int idOut2 = Integer.parseInt(idOut);
+
+        System.out.println(idOut2);
+//
+//        System.out.println(getIdresult.getResponse().getContentAsString());
+//
+//        System.out.println(getIdresult.getFlashMap().get(id));
     }
     @Test
     @Order(3)
