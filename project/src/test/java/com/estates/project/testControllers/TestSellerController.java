@@ -88,9 +88,9 @@ public class TestSellerController {
 
 //        Seller compareSeller = new Seller(idOut2, "Brian", "McCloudy", "Box", "Beach", "123456789");
 //        String compareJSON = mapper.writeValueAsString(compareSeller);
-//
-//        System.out.println(idOut2);
-//        System.out.println(mvcResult.getResponse().getContentAsString());
+
+        System.out.println(idOut2);
+        System.out.println(mvcResult.getResponse().getContentAsString());
 
 //        assertEquals(compareJSON, mvcResult.getResponse().getContentAsString());
     }

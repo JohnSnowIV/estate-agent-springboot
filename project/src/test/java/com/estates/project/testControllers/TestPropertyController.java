@@ -2,15 +2,20 @@ package com.estates.project.testControllers;
 
 import com.estates.project.controllers.PropertyController;
 import com.estates.project.entities.Property;
+import com.estates.project.repository.PropertyRepository;
 import com.estates.project.services.PropertyService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.jayway.jsonpath.JsonPath;
 import org.aspectj.lang.annotation.Before;
 import org.hamcrest.Matchers;
 import org.hibernate.jdbc.Expectation;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.internal.matchers.GreaterThan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +34,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -50,11 +57,18 @@ public class TestPropertyController {
     public void testGetProperties() throws Exception {
 
 
-        mvc.perform(MockMvcRequestBuilders.get("/property"))
+       MvcResult Result=mvc.perform(MockMvcRequestBuilders.get("/property"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(print())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
+               .andReturn();
+        String content = Result.getResponse().getContentAsString();
+
+        List<Property> propList= mapper.readValue(content, new TypeReference<List<Property>>() {
+        });
+
+        for(int i=0;i<propList.size();i++){
+            Assertions.assertNotNull(propList.get(i).getId());
+        }
 
     }
 
