@@ -139,6 +139,8 @@ public class TestSellerController {
 //        assertEquals(postComp.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
 //        assertNotSame(postComp.getResponse().getContentAsString(), mvcResult.getResponse().getContentAsString());
     }
+
+    //Below just to show that the new seller is removed. 
     @Test
     @Order(7)
     public void testGetSellersFin() throws Exception {
