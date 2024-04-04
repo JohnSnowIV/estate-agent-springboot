@@ -1,10 +1,9 @@
 package com.estates.project.entities;
 
-
 import jakarta.persistence.*;
 
 @Entity
-//@Table(name="seller")
+@Table(name="seller")
 public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

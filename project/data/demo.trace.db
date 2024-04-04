@@ -1,0 +1,72 @@
+2024-04-02 13:59:01.740056+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 [42104-224]
+2024-04-02 13:59:01.862026+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+insert into seller (address,firstname,phone,postcode,surname,id) values (?,?,?,?,?,default) [42104-224]
+2024-04-02 13:59:01.881062+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 13:59:01.902057+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:00:13.712147+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 [42104-224]
+2024-04-02 14:00:13.864147+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+insert into seller (address,firstname,phone,postcode,surname,id) values (?,?,?,?,?,default) [42104-224]
+2024-04-02 14:00:13.885146+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:00:13.906146+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:01:53.605750+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 [42104-224]
+2024-04-02 14:01:53.726749+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+insert into seller (address,firstname,phone,postcode,surname,id) values (?,?,?,?,?,default) [42104-224]
+2024-04-02 14:01:53.746750+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:01:53.766749+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:03:19.046254+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 [42104-224]
+2024-04-02 14:03:19.165223+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+insert into seller (address,firstname,phone,postcode,surname,id) values (?,?,?,?,?,default) [42104-224]
+2024-04-02 14:03:19.184253+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:03:19.204253+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:07:28.969170+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 [42104-224]
+2024-04-02 14:07:29.089170+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+insert into seller (address,firstname,phone,postcode,surname,id) values (?,?,?,?,?,default) [42104-224]
+2024-04-02 14:07:29.109170+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:07:29.128170+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SELLER" not found (this database is empty); SQL statement:
+select s1_0.id,s1_0.address,s1_0.firstname,s1_0.phone,s1_0.postcode,s1_0.surname from seller s1_0 where s1_0.id=? [42104-224]
+2024-04-02 14:11:11.898858+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROPERTY" not found (this database is empty); SQL statement:
+select p1_0.id,p1_0.address,p1_0.bathroom,p1_0.bedroom,p1_0.dateadded,p1_0.description,p1_0.garden,p1_0.image,p1_0.listed,p1_0.postcode,p1_0.price,p1_0.sellerid,p1_0.status,p1_0.type from property p1_0 where p1_0.id=? [42104-224]
+2024-04-02 14:11:11.971857+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROPERTY" not found (this database is empty); SQL statement:
+insert into property (address,bathroom,bedroom,dateadded,description,garden,image,listed,postcode,price,sellerid,status,type,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,default) [42104-224]
+2024-04-02 14:11:11.983824+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROPERTY" not found (this database is empty); SQL statement:
+select p1_0.id,p1_0.address,p1_0.bathroom,p1_0.bedroom,p1_0.dateadded,p1_0.description,p1_0.garden,p1_0.image,p1_0.listed,p1_0.postcode,p1_0.price,p1_0.sellerid,p1_0.status,p1_0.type from property p1_0 where p1_0.id=? [42104-224]
+2024-04-02 14:11:12.048824+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROPERTY" not found (this database is empty); SQL statement:
+select p1_0.id,p1_0.address,p1_0.bathroom,p1_0.bedroom,p1_0.dateadded,p1_0.description,p1_0.garden,p1_0.image,p1_0.listed,p1_0.postcode,p1_0.price,p1_0.sellerid,p1_0.status,p1_0.type from property p1_0 order by p1_0.bedroom desc [42104-224]
