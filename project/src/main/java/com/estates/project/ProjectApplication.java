@@ -15,9 +15,9 @@ public class ProjectApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://ec2-13-40-108-153.eu-west-2.compute.amazonaws.com:8080")
-						.allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE");
-						//.allowedHeaders("Access-Control-Request-Headers", "Access-Control-Request-Method", "X-Requested-With", "Access-Control-Allow-Headers");
+						.allowedOrigins("13.40.108.153:8080")
+						.allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE")
+						.allowedHeaders("*");
 			}
 		};
 	}
