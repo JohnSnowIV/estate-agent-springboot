@@ -1,12 +1,18 @@
 pipeline {
     agent any
     stages {
-        stage('Build Maven'){
+        stage('Clone Repo'){
             steps{
                 checkout scm
-                bat 'mvn clean install'
             }
         }
+        stage('Build Maven'){
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+    }
+}
 //         stage('Build Docker Image'){
 //             steps{
 //                 script{
@@ -21,5 +27,3 @@ pipeline {
 //                 }
 //             }
 //         }
-    }
-}
