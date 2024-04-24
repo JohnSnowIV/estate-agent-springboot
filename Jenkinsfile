@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/docker']], extensions:[], userRemoteConfigs: [[url: 'https://github.com/JohnSnowIV/estate-agent-springboot.git']]])
+                checkout scm
                 sh 'mvn clean install'
             }
         }
